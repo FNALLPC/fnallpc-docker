@@ -1,7 +1,8 @@
 version: "3.7"
-build:
-  context: .
-  args:
-    TensorFlow_Version: latest
-    TensorFlow_Variants: -gpu-py3-jupyter
-container_name: fnallpc-docker-tenserflow-py3-gpu-jupyter
+services:
+  fnallpc-docker-tenserflow-py3-gpu-jupyter
+    build:
+      context: .
+      args:
+        TensorFlow_Version: latest
+        TensorFlow_Variants: -gpu-py3-jupyter
