@@ -1,9 +1,7 @@
-MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
-
 ARG TensorFlow_Version=latest
 ARG TensorFlow_Variants=-gpu-py3-jupyter
-
 FROM tensorflow/tensorflow:${TensorFlow_Version}${TensorFlow_Variants}
+MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
 
 # Merge in the directions to install miniconda
 # Taken from https://hub.docker.com/r/continuumio/anaconda/dockerfile
