@@ -12,12 +12,14 @@ RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificate
     libglib2.0-0 libxext6 libsm6 libxrender1 \
     git mercurial subversion
 
-RUN wget --quiet https://repo.anaconda.com/archive/Anaconda2-5.3.0-Linux-x86_64.sh -O ~/anaconda.sh && \
+# Once Anaconda is installed, setup the needed software using conda install commands
+RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh -O ~/anaconda.sh && \
     /bin/bash ~/anaconda.sh -b -p /opt/conda && \
     rm ~/anaconda.sh && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc
+    . /opt/conda/etc/profile.d/conda.sh && \
+    conda env update --name base --file conda_env.yml && \
+    conda clean -a
 
 # Tini project: https://github.com/krallin/tini/
 RUN apt-get install -y curl grep sed dpkg && \
@@ -26,8 +28,6 @@ RUN apt-get install -y curl grep sed dpkg && \
     dpkg -i tini.deb && \
     rm tini.deb && \
     apt-get clean
-
-# Once Anaconda is installed, setup the needed software using conda install commands
 
 # Set the remote user
 RUN groupadd cmsuser \

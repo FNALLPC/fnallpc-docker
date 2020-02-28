@@ -16,3 +16,8 @@ fi
 
 # Needed to access FNAL EOS
 export XrdSecGSISRVNAMES="cmseos.fnal.gov"
+
+# Conda Setup
+. /opt/conda/etc/profile.d/conda.sh
+conda activate base
+    

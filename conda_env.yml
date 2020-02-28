@@ -1,0 +1,34 @@
+name: base
+
+channels:
+  - defaults
+dependencies:
+  - bazel
+  - blaze
+  - dask
+  - cython
+  - graphviz
+  - h5py
+  - keras-gpu
+  - matplotlib
+  - mkl
+  - nb_conda
+  - numba
+  - numpy
+  - pandas
+  - https://conda.anaconda.org/lukepfister/linux-64/pycuda-2017.1-py36_0.tar.bz2
+  - pydot
+  - pygpu
+  - pytest
+  - python=3.6
+  - scikit-image
+  - scikit-learn
+  - scipy
+  - theano
+  - wheel
+  - pip
+  - pip:
+    - energyflow
+    - PyHamcrest
+    - uproot
+    - uproot-methods
