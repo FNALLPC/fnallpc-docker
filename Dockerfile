@@ -18,8 +18,8 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_6
     rm ~/anaconda.sh && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     . /opt/conda/etc/profile.d/conda.sh && \
-    conda env update --name base --file conda_env.yml && \
-    conda clean -a
+    conda env update --name base --file conda_env.yml -y && \
+    conda clean -a -y
 
 # Tini project: https://github.com/krallin/tini/
 RUN apt-get install -y curl grep sed dpkg && \
