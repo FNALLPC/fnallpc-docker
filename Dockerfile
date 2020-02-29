@@ -13,6 +13,7 @@ RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificate
     git mercurial subversion
 
 # Once Anaconda is installed, setup the needed software using conda install commands
+ADD conda_env.yml conda_env.yml 
 RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh -O ~/anaconda.sh && \
     /bin/bash ~/anaconda.sh -b -p /opt/conda && \
     rm ~/anaconda.sh && \
