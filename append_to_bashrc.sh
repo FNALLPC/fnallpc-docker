@@ -18,6 +18,6 @@ fi
 export XrdSecGSISRVNAMES="cmseos.fnal.gov"
 
 # Conda Setup
-. /opt/conda/etc/profile.d/conda.sh
-conda activate base
+#. /opt/conda/etc/profile.d/conda.sh
+#conda activate base
     

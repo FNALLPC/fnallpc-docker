@@ -72,3 +72,6 @@ This repository contains the Docker projects for the LHC Physics Center at Fermi
 | uproot-methods       | 0.7.3                     | 0.7.3                     |
 | wheel                | 0.34.2                    | 0.33.6                    |
 | yaml                 | 0.1.7                     | 0.1.7                     |
+
+## To Run
+docker run --rm -it -P --device /dev/fuse --net=host -e DISPLAY=host.docker.internal:0 -e MY_UID=501 -e MY_GID=20 tensorflow/tensorflow:latest-gpu-py3-jupyter
