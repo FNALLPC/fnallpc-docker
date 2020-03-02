@@ -8,12 +8,15 @@ MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
-RUN apt-get update --fix-missing && apt-get install -y wget bzip2 ca-certificates \
-    libglib2.0-0 libxext6 libsm6 libxrender1 \
-    git mercurial subversion
+RUN apt-get update --fix-missing \
+    && apt-get install -y wget bzip2 ca-certificates \
+    libglib2.0-0 libxext6 libsm6 libxrender1 git mercurial subversion curl && \
+    curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add - && \
+    echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
 
 # Install the packages beyond what came in the base layer
-RUN apt-get install -y bazel && \
+RUN apt-get update && \
+    apt-get install -y bazel && \
     pip install blaze cython dask graphviz keras matplotlib mkl numba numpy pandas pycuda pydot pygpu pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
 
 # Install libgpuarray/pygpu
