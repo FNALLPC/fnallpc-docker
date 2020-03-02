@@ -9,8 +9,8 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
 RUN apt-get update --fix-missing \
-    && apt-get install -y wget bzip2 ca-certificates \
-    libglib2.0-0 libxext6 libsm6 libxrender1 git mercurial subversion curl && \
+    && apt-get install -y curl wget git bzip2 ca-certificates \
+#    libglib2.0-0 libxext6 libsm6 libxrender1 mercurial subversion && \
     curl https://bazel.build/bazel-release.pub.gpg | sudo apt-key add - && \
     echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | sudo tee /etc/apt/sources.list.d/bazel.list
 
