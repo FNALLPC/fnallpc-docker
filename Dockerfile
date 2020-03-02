@@ -8,16 +8,18 @@ MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
-RUN apt-get update --fix-missing \
-    && apt-get install -y curl wget git bzip2 ca-certificates \
+RUN apt-get update --fix-missing && \
+    apt-get install -y curl wget git bzip2 ca-certificates
 #    libglib2.0-0 libxext6 libsm6 libxrender1 mercurial subversion && \
-    curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
-    echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list
 
-# Install the packages beyond what came in the base layer
-RUN apt-get update && \
-    apt-get install -y bazel && \
-    pip install blaze cython dask graphviz keras matplotlib mkl numba numpy pandas pycuda pydot pygpu pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
+# Install bazel
+RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
+    echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list && \
+    apt-get update && \ 
+    apt-get install -y bazel
+
+# Install packages into the default python release
+RUN pip install blaze cython dask graphviz keras matplotlib mkl numba numpy pandas pycuda pydot pygpu pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
 
 # Install libgpuarray/pygpu
 RUN git clone https://github.com/Theano/libgpuarray.git && \
