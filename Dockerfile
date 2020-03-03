@@ -32,6 +32,7 @@ RUN git clone https://github.com/Theano/libgpuarray.git && \
     cmake .. -DCMAKE_BUILD_TYPE=Release && \
     make && \
     make install && \
+    cd .. && \
     python setup.py install && \
     cd ..
 
