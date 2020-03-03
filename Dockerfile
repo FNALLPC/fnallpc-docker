@@ -17,10 +17,11 @@ RUN apt-get update --fix-missing && \
 RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
     echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list && \
     apt-get update && \ 
-    apt-get install -y bazel
+    apt-get install -y bazel && \
+    apt-get clean
 
 # Install packages into the default python release
-RUN pip install blaze cython dask graphviz keras matplotlib mkl numba numpy pandas pydot pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
+RUN pip install --no-cache-dir blaze cython dask graphviz keras matplotlib mkl numba numpy pandas pydot pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
 
 # Install libgpuarray/pygpu
 # Known Dependencies: cmake, git
@@ -31,6 +32,7 @@ RUN git clone https://github.com/Theano/libgpuarray.git && \
     cmake .. -DCMAKE_BUILD_TYPE=Release && \
     make && \
     make install && \
+    python setup.py install && \
     cd ..
 
 # Can't install pycuda without the development version of the nvidia image, which is not passed along by the TensorFlow people
@@ -60,7 +62,8 @@ RUN groupadd cmsuser \
 
 WORKDIR /home/cmsuser
 ADD append_to_bashrc.sh .append_to_bashrc.sh
-RUN cat .append_to_bashrc.sh >> .bashrc
+RUN cat .append_to_bashrc.sh >> .bashrc && \
+    cp -r /root/.jupyter/ /home/cmsuser/
 
 # Set the entrypoint
 ADD run.sh /run.sh
