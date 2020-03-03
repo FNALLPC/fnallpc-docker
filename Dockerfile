@@ -21,7 +21,7 @@ RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
     apt-get clean
 
 # Install packages into the default python release
-RUN pip install --no-cache-dir blaze cython dask graphviz keras matplotlib mkl numba numpy pandas pydot pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
+RUN pip install --no-cache-dir blaze cython dask gpyopt graphviz keras keras-tuner matplotlib mkl numba numpy pandas pydot pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
 
 # Install libgpuarray/pygpu
 # Known Dependencies: cmake, git
