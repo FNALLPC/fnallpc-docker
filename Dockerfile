@@ -19,7 +19,7 @@ RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
     apt-get install -y bazel
 
 # Install packages into the default python release
-RUN pip install blaze cython dask graphviz keras matplotlib mkl numba numpy pandas pycuda pydot pygpu pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
+RUN pip install blaze cython dask graphviz keras matplotlib mkl numba numpy pandas pydot pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
 
 # Install libgpuarray/pygpu
 RUN git clone https://github.com/Theano/libgpuarray.git && \
