@@ -9,7 +9,7 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y curl wget git bzip2 ca-certificates
+    apt-get install -y curl wget git bzip2 ca-certificates cmake
 #    libglib2.0-0 libxext6 libsm6 libxrender1 mercurial subversion && \
 
 # Install bazel
