@@ -9,10 +9,11 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y curl wget git bzip2 ca-certificates cmake
-#    libglib2.0-0 libxext6 libsm6 libxrender1 mercurial subversion && \
+    apt-get install -y curl wget git ca-certificates cmake
+#    bzip2 libglib2.0-0 libxext6 libsm6 libxrender1 mercurial subversion && \
 
 # Install bazel
+# Known Dependencies: curl
 RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
     echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list && \
     apt-get update && \ 
@@ -22,6 +23,7 @@ RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
 RUN pip install blaze cython dask graphviz keras matplotlib mkl numba numpy pandas pydot pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
 
 # Install libgpuarray/pygpu
+# Known Dependencies: cmake, git
 RUN git clone https://github.com/Theano/libgpuarray.git && \
     cd libgpuarray && \
     mkdir Build && \

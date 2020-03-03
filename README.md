@@ -75,3 +75,4 @@ This repository contains the Docker projects for the LHC Physics Center at Fermi
 
 ## To Run
 docker run --rm -it -P --device /dev/fuse --net=host -e DISPLAY=host.docker.internal:0 -e MY_UID=501 -e MY_GID=20 tensorflow/tensorflow:latest-gpu-py3-jupyter
+docker run --rm -it -P --device /dev/fuse --net=host -e DISPLAY=host.docker.internal:0 -e MY_UID=$(id -u) -e MY_GID=$(id -g) tensorflow/tensorflow:latest-gpu-py3

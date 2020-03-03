@@ -17,6 +17,11 @@ fi
 # Needed to access FNAL EOS
 export XrdSecGSISRVNAMES="cmseos.fnal.gov"
 
+# CUDA Setup
+CUDA_VERSION_SHORT="${CUDA_VERSION%.*}"
+export PATH=/usr/local/cuda-${CUDA_VERSION_SHORT}/bin${PATH:+:${PATH}}
+export LD_LIBRARY_PATH=/usr/local/cuda-${CUDA_VERSION_SHORT}/lib64${LD_LIBRARY_PATH:+:${LD_LIBRARY_PATH}}
+
 # Conda Setup
 #. /opt/conda/etc/profile.d/conda.sh
 #conda activate base
