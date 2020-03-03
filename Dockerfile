@@ -33,6 +33,7 @@ RUN git clone https://github.com/Theano/libgpuarray.git && \
     make && \
     make install && \
     cd .. && \
+    python setup.py build && \
     python setup.py install && \
     cd ..
 
