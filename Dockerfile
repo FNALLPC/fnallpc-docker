@@ -3,11 +3,6 @@ ARG TensorFlow_Variants=-gpu-py3
 FROM tensorflow/tensorflow:${TensorFlow_Version}${TensorFlow_Variants}
 MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
 
-# Merge in the directions to install miniconda
-# Taken from https://hub.docker.com/r/continuumio/anaconda/dockerfile
-ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
-ENV PATH /opt/conda/bin:$PATH
-
 RUN apt-get update --fix-missing && \
     apt-get install -y curl wget git ca-certificates cmake
 #    bzip2 libglib2.0-0 libxext6 libsm6 libxrender1 mercurial subversion && \
@@ -36,6 +31,8 @@ RUN git clone https://github.com/Theano/libgpuarray.git && \
     python setup.py build && \
     python setup.py install && \
     cd ..
+    
+ENV LD_LIBRARY_PATH $LD_LIBRARY_PATH:/libgpuarray/lib/
 
 # Can't install pycuda without the development version of the nvidia image, which is not passed along by the TensorFlow people
 # If we really want this, we can install with `apt-get install python3-pycuda`, but it will add >2 GB to the build
