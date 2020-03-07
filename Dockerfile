@@ -1,5 +1,5 @@
 ARG TensorFlow_Version=latest
-ARG TensorFlow_Variants=-gpu-py3-jupyter
+ARG TensorFlow_Variants=-gpu-py3
 FROM tensorflow/tensorflow:${TensorFlow_Version}${TensorFlow_Variants}
 MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
 
@@ -40,33 +40,5 @@ RUN git clone https://github.com/Theano/libgpuarray.git && \
 # Can't install pycuda without the development version of the nvidia image, which is not passed along by the TensorFlow people
 # If we really want this, we can install with `apt-get install python3-pycuda`, but it will add >2 GB to the build
 
-# Once Anaconda is installed, setup the needed software using conda install commands
-#ADD conda_env.yml conda_env.yml 
-#RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh -O ~/anaconda.sh && \
-#    /bin/bash ~/anaconda.sh -b -p /opt/conda && \
-#    rm ~/anaconda.sh && \
-#    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-#    . /opt/conda/etc/profile.d/conda.sh && \
-#    conda env update --name base --file conda_env.yml && \
-#    conda clean -a -y
-
-# Tini project: https://github.com/krallin/tini/
-RUN apt-get install -y curl grep sed dpkg && \
-    TINI_VERSION=`curl https://github.com/krallin/tini/releases/latest | grep -o "/v.*\"" | sed 's:^..\(.*\).$:\1:'` && \
-    curl -L "https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini_${TINI_VERSION}.deb" > tini.deb && \
-    dpkg -i tini.deb && \
-    rm tini.deb && \
-    apt-get clean
-
-# Set the remote user
-RUN groupadd cmsuser \
-    && useradd -m -s /bin/bash -g cmsuser cmsuser
-
-WORKDIR /home/cmsuser
-ADD append_to_bashrc.sh .append_to_bashrc.sh
-RUN cat .append_to_bashrc.sh >> .bashrc && \
-    cp -r /root/.jupyter/ /home/cmsuser/
-
 # Set the entrypoint
-ADD run.sh /run.sh
-ENTRYPOINT [ "/usr/bin/tini", "--", "/run.sh" ]
+ENTRYPOINT [ "/bin/bash" ]
