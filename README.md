@@ -3,12 +3,19 @@ This repository contains the Docker projects for the LHC Physics Center at Fermi
 
 <!-- MarkdownTOC levels="2,3" autolink="true" -->
 
+- [Status](#status)
 - [Build Instructions](#build-instructions)
 - [Use Instructions](#use-instructions)
 - [Source Containers](#source-containers)
 - [Conda Packages Included](#conda-packages-included)
 
 <!-- /MarkdownTOC -->
+
+## Status
+
+Branch|Build|Type|Pulls|Stars|Docker Hub
+---|---|---|---|---|---
+singularity-compatible | ![Build and Publish Default Docker Image](https://github.com/FNALLPC/fnallpc-docker/workflows/Build%20and%20Publish%20Default%20Docker%20Image/badge.svg?branch=singularity-compatible) | [![Docker Build Type](https://img.shields.io/docker/automated/fnallpc/fnallpc-docker.svg)](https://img.shields.io/docker/automated/fnallpc/fnallpc-docker.svg) | [![](https://img.shields.io/docker/pulls/fnallpc/fnallpc-docker.svg)](https://img.shields.io/docker/pulls/fnallpc/fnallpc-docker.svg) | [![](https://img.shields.io/docker/stars/fnallpc/fnallpc-docker.svg)](https://img.shields.io/docker/stars/fnallpc/fnallpc-docker.svg) | [cms-cvmfs-docker](https://hub.docker.com/repository/docker/fnallpc/fnallpc-docker)
 
 ## Build Instructions
 
@@ -73,10 +80,17 @@ This repository contains the Docker projects for the LHC Physics Center at Fermi
 | wheel                | 0.34.2                    | 0.33.6                    |
 | yaml                 | 0.1.7                     | 0.1.7                     |
 
-## To Run
-docker run --rm -it -P --device /dev/fuse --net=host -e DISPLAY=host.docker.internal:0 -e MY_UID=501 -e MY_GID=20 tensorflow/tensorflow:latest-gpu-py3-jupyter
-docker run --rm -it -P --device /dev/fuse --net=host -e DISPLAY=host.docker.internal:0 -e MY_UID=$(id -u) -e MY_GID=$(id -g) tensorflow/tensorflow:latest-gpu-py3
+## To Run Using Docker
+docker run --rm -it -P --gpus all --device /dev/fuse --net=host -e DISPLAY=host.docker.internal:0 -e MY_UID=501 -e MY_GID=20 tensorflow/tensorflow:latest-gpu-py3-jupyter
+docker run --rm -it -P --gpus all --device /dev/fuse --net=host -e DISPLAY=host.docker.internal:0 -e MY_UID=$(id -u) -e MY_GID=$(id -g) tensorflow/tensorflow:latest-gpu-py3
 
+## To Run Using Singularity
+singularity shell --nv docker://fnallpc/fnallpc-docker:singularity-compatible #does not run bash for some reason
+singularity exec --nv docker://fnallpc/fnallpc-docker:singularity-compatible /bin/bash
+singularity run --nv docker://fnallpc/fnallpc-docker:singularity-compatible
+
+### To convert a SIF to a sandbox
+singularity build --sandbox fnallpc-docker_singularity-compatible fnallpc-docker_singularity-compatible.sif
 
 ## Singularity compatible branch
 Add the following *required* lines to your login scripts:
