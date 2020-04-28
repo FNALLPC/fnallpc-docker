@@ -1,5 +1,5 @@
 ARG TensorFlow_Version=latest
-ARG TensorFlow_Variants=devel-gpu
+ARG TensorFlow_Variants=-devel-gpu
 FROM tensorflow/tensorflow:${TensorFlow_Version}${TensorFlow_Variants}
 MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
 
