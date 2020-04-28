@@ -20,21 +20,21 @@ jobs:
 #Can use '$(date +%s)' in the tag name
 
       - name: Build the 'latest-gpu-singularity' Docker image
-        run: docker build --build-arg TensorFlow_Version=latest --build-arg TensorFlow_Variants=-gpu . --file Dockerfile --tag fnallpc/fnallpc-docker:latest-gpu-singularity-${{steps.vars.outputs.tag}}
+        run: docker build --build-arg TensorFlow_Version=latest --build-arg TensorFlow_Variants=-gpu . --file Dockerfile --tag fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity-${{steps.vars.outputs.tag}}
       - name: Push the 'latest-gpu-singularity' Docker image
-        run: docker push fnallpc/fnallpc-docker:latest-gpu-singularity-${{steps.vars.outputs.tag}}
+        run: docker push fnallpc/fnallpc-docker:tensorflow-latest-gpu-singularity-${{steps.vars.outputs.tag}}
 
       - name: Build the 'latest-devel-gpu-singularity' Docker image
-        run: docker build --build-arg TensorFlow_Version=latest --build-arg TensorFlow_Variants=-devel-gpu . --file Dockerfile --tag fnallpc/fnallpc-docker:latest-devel-gpu-singularity-${{steps.vars.outputs.tag}}
+        run: docker build --build-arg TensorFlow_Version=latest --build-arg TensorFlow_Variants=-devel-gpu . --file Dockerfile --tag fnallpc/fnallpc-docker:tensorflow-latest-devel-gpu-singularity-${{steps.vars.outputs.tag}}
       - name: Push the 'latest-devel-gpu-singularity' Docker image
-        run: docker push fnallpc/fnallpc-docker:latest-devel-gpu-singularity-${{steps.vars.outputs.tag}}
+        run: docker push fnallpc/fnallpc-docker:tensorflow-latest-devel-gpu-singularity-${{steps.vars.outputs.tag}}
 
       - name: Build the 'latest-gpu-jupyter-singularity' Docker image
-        run: docker build --build-arg TensorFlow_Version=latest --build-arg TensorFlow_Variants=-gpu-jupyter . --file Dockerfile --tag fnallpc/fnallpc-docker:latest-gpu-jupyter-singularity-${{steps.vars.outputs.tag}}
+        run: docker build --build-arg TensorFlow_Version=latest --build-arg TensorFlow_Variants=-gpu-jupyter . --file Dockerfile --tag fnallpc/fnallpc-docker:tensorflow-latest-gpu-jupyter-singularity-${{steps.vars.outputs.tag}}
       - name: Push the 'latest-gpu-jupyter-singularity' Docker image
-        run: docker push fnallpc/fnallpc-docker:latest-gpu-jupyter-singularity-${{steps.vars.outputs.tag}}
+        run: docker push fnallpc/fnallpc-docker:tensorflow-latest-gpu-jupyter-singularity-${{steps.vars.outputs.tag}}
 
       - name: Build the 'latest-devel-gpu-jupyter-singularity' Docker image
-        run: docker build --build-arg TensorFlow_Version=latest --build-arg TensorFlow_Variants=-devel-gpu-jupyter . --file Dockerfile --tag fnallpc/fnallpc-docker:latest-devel-gpu-jupyter-singularity-${{steps.vars.outputs.tag}}
+        run: docker build --build-arg TensorFlow_Version=latest --build-arg TensorFlow_Variants=-devel-gpu-jupyter . --file Dockerfile --tag fnallpc/fnallpc-docker:tensorflow-latest-devel-gpu-jupyter-singularity-${{steps.vars.outputs.tag}}
       - name: Push the 'latest-devel-gpu-jupyter-singularity' Docker image
-        run: docker push fnallpc/fnallpc-docker:latest-devel-gpu-jupyter-singularity-${{steps.vars.outputs.tag}}
+        run: docker push fnallpc/fnallpc-docker:tensorflow-latest-devel-gpu-jupyter-singularity-${{steps.vars.outputs.tag}}
