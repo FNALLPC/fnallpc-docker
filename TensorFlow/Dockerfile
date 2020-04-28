@@ -1,5 +1,5 @@
 ARG TensorFlow_Version=latest
-ARG TensorFlow_Variants=-gpu-py3
+ARG TensorFlow_Variants=devel-gpu
 FROM tensorflow/tensorflow:${TensorFlow_Version}${TensorFlow_Variants}
 MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
 
@@ -8,15 +8,16 @@ RUN apt-get update --fix-missing && \
 #    bzip2 libglib2.0-0 libxext6 libsm6 libxrender1 mercurial subversion && \
 
 # Install bazel
+# Don't need this if we use the "devel" variant, which comes with bazel
 # Known Dependencies: curl
-RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
-    echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list && \
-    apt-get update && \ 
-    apt-get install -y bazel && \
-    apt-get clean
+#RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
+#    echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list && \
+#    apt-get update && \ 
+#    apt-get install -y bazel && \
+#    apt-get clean
 
 # Install packages into the default python release
-RUN pip install --no-cache-dir blaze cython dask gpyopt graphviz keras keras-tuner matplotlib mkl numba numpy pandas pydot pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
+RUN pip install --no-cache-dir blaze cython dask gpyopt graphviz keras keras-tuner matplotlib mkl mlflow mlflow-extend mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
 
 # Install libgpuarray/pygpu
 # Known Dependencies: cmake, git
