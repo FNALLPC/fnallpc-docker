@@ -12,7 +12,7 @@ jobs:
         name: fnallpc/fnallpc-docker
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-	workdir: TensorFlow
+        workdir: TensorFlow/
         tags: "latest-devel-gpu-singularity"
 
   build_pytorch:
@@ -23,7 +23,7 @@ jobs:
       uses: elgohr/Publish-Docker-Github-Action@2.13
       with:
         name: fnallpc/fnallpc-docker
-	username: ${{ secrets.DOCKER_USERNAME }}
-	password: ${{ secrets.DOCKER_PASSWORD }}
-	workdir: PyTorch
-	tags: "1.5-cuda10.1-cudnn7-runtime-singularity"
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
+        workdir: PyTorch/
+        tags: "1.5-cuda10.1-cudnn7-runtime-singularity"
