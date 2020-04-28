@@ -17,7 +17,8 @@ RUN apt-get update --fix-missing && \
 #    apt-get clean
 
 # Install packages into the default python release
-RUN pip install --no-cache-dir blaze cython dask gpyopt graphviz keras keras-tuner matplotlib mkl mlflow mlflow-extend mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
+RUN pip uninstall -y enum34 && \
+    pip install --no-cache-dir blaze cython dask gpyopt graphviz keras keras-tuner matplotlib mkl mlflow mlflow-extend mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn theano energyflow PyHamcrest uproot uproot-methods
 
 # Install libgpuarray/pygpu
 # Known Dependencies: cmake, git
