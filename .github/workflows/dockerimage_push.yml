@@ -2,16 +2,28 @@ name: Build and Publish Default Docker Image
 
 on: [ push ]
 jobs:
-  build:
+  build_tensorflow:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-#    - name: Build the Docker image
-#      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
-    - name: Publish Docker
+    - name: Publish TensorFlow Docker
       uses: elgohr/Publish-Docker-Github-Action@2.13
       with:
         name: fnallpc/fnallpc-docker
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
-        tags: "latest-gpu-py3-singularity"
+	workdir: TensorFlow
+        tags: "latest-devel-gpu-singularity"
+
+  build_pytorch:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Publish Pytorch Docker
+      uses: elgohr/Publish-Docker-Github-Action@2.13
+      with:
+        name: fnallpc/fnallpc-docker
+	username: ${{ secrets.DOCKER_USERNAME }}
+	password: ${{ secrets.DOCKER_PASSWORD }}
+	workdir: PyTorch
+	tags: "1.5-cuda10.1-cudnn7-runtime-singularity"
