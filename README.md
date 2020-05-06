@@ -15,6 +15,7 @@ This repository contains the Docker projects for the LHC Physics Center at Fermi
 
 Branch|Build|Type|Pulls|Stars|Docker Hub
 ---|---|---|---|---|---
+master | ![Build and Publish Docker Images](https://github.com/FNALLPC/fnallpc-docker/workflows/Build%20and%20Publish%20Docker%20Images/badge.svg) | | [![Docker Build Type](https://img.shields.io/docker/automated/fnallpc/fnallpc-docker.svg)](https://img.shields.io/docker/automated/fnallpc/fnallpc-docker.svg) | [![](https://img.shields.io/docker/pulls/fnallpc/fnallpc-docker.svg)](https://img.shields.io/docker/pulls/fnallpc/fnallpc-docker.svg) | [![](https://img.shields.io/docker/stars/fnallpc/fnallpc-docker.svg)](https://img.shields.io/docker/stars/fnallpc/fnallpc-docker.svg) | [cms-cvmfs-docker](https://hub.docker.com/repository/docker/fnallpc/fnallpc-docker)
 singularity-compatible | ![Build and Publish Default Docker Image](https://github.com/FNALLPC/fnallpc-docker/workflows/Build%20and%20Publish%20Default%20Docker%20Image/badge.svg?branch=singularity-compatible) | [![Docker Build Type](https://img.shields.io/docker/automated/fnallpc/fnallpc-docker.svg)](https://img.shields.io/docker/automated/fnallpc/fnallpc-docker.svg) | [![](https://img.shields.io/docker/pulls/fnallpc/fnallpc-docker.svg)](https://img.shields.io/docker/pulls/fnallpc/fnallpc-docker.svg) | [![](https://img.shields.io/docker/stars/fnallpc/fnallpc-docker.svg)](https://img.shields.io/docker/stars/fnallpc/fnallpc-docker.svg) | [cms-cvmfs-docker](https://hub.docker.com/repository/docker/fnallpc/fnallpc-docker)
 
 ## Build Instructions
@@ -85,12 +86,16 @@ docker run --rm -it -P --gpus all --device /dev/fuse --net=host -e DISPLAY=host.
 docker run --rm -it -P --gpus all --device /dev/fuse --net=host -e DISPLAY=host.docker.internal:0 -e MY_UID=$(id -u) -e MY_GID=$(id -g) tensorflow/tensorflow:latest-gpu-py3
 
 ## To Run Using Singularity
+```bash
 singularity shell --nv docker://fnallpc/fnallpc-docker:singularity-compatible #does not run bash for some reason
 singularity exec --nv docker://fnallpc/fnallpc-docker:singularity-compatible /bin/bash
 singularity run --nv docker://fnallpc/fnallpc-docker:singularity-compatible
+```
 
 ### To convert a SIF to a sandbox
+```bash
 singularity build --sandbox fnallpc-docker_singularity-compatible fnallpc-docker_singularity-compatible.sif
+```
 
 ## Singularity compatible branch
 Add the following *required* lines to your login scripts:

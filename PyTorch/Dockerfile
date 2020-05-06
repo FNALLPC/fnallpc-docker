@@ -7,7 +7,7 @@ RUN apt-get update --fix-missing && \
     apt-get install -y wget git && \
     apt-get clean && \
     /opt/conda/bin/conda install -y blaze dask graphviz matplotlib numba pandas pydot pygpu pytest scikit-image scikit-learn PyHamcrest && \
-    /opt/conda/bin/conda install -y -c conda-forge gpyopt mlflow uproot uproot-methods && \
+    /opt/conda/bin/conda install -y -c conda-forge gpyopt mlflow pytables uproot uproot-methods && \
     pip install --no-cache-dir energyflow && \
     /opt/conda/bin/conda clean -ya && \
     rm -r .empty
