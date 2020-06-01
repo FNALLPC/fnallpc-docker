@@ -5,7 +5,7 @@ MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
 
 ARG CUDA_VERSION=cu101
 RUN apt-get update --fix-missing && \
-    apt-get install -y wget git && \
+    apt-get install -y wget git nano && \
     apt-get clean && \
     /opt/conda/bin/conda install -y blaze dask graphviz matplotlib numba pandas pydot pygpu pytest scikit-image scikit-learn PyHamcrest && \
     /opt/conda/bin/conda install -y -c conda-forge gpyopt jupyterlab notebook mlflow pytables uproot uproot-methods && \
