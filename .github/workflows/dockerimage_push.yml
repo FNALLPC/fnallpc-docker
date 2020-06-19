@@ -9,13 +9,13 @@ jobs:
     - name: Publish TensorFlow Docker
       uses: elgohr/Publish-Docker-Github-Action@2.13
       env:
-        TensorFlow_Variants: -devel-gpu
+        TensorFlow_Variants: '-devel-gpu'
       with:
         name: fnallpc/fnallpc-docker
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         workdir: TensorFlow/
-        buildargs: TensorFlow_Variants
+        buildargs: "TensorFlow_Variants"
         tags: "tensorflow-latest-devel-gpu-singularity"
 
   build_tensorflow:
