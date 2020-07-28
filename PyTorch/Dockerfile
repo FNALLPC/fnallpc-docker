@@ -11,7 +11,6 @@ RUN apt-get update --fix-missing && \
     /opt/conda/bin/conda install -y -c conda-forge gpyopt ipywidgets jupyterlab nodejs notebook mlflow opencv py-opencv pytables uproot uproot-methods widgetsnbextension && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     pip install --no-cache-dir energyflow && \
-    pip install --no-cache-dir lgn && \
     pip install --no-cache-dir torch-scatter==latest+${CUDA_VERSION} -f https://pytorch-geometric.com/whl/torch-1.5.0.html && \
     pip install --no-cache-dir torch-sparse==latest+${CUDA_VERSION} -f https://pytorch-geometric.com/whl/torch-1.5.0.html && \
     pip install --no-cache-dir torch-cluster==latest+${CUDA_VERSION} -f https://pytorch-geometric.com/whl/torch-1.5.0.html && \
@@ -19,6 +18,15 @@ RUN apt-get update --fix-missing && \
     pip install --no-cache-dir torch-geometric && \
     /opt/conda/bin/conda clean -ya && \
     rm -r .empty
+
+# Install the LorentzGroupNetwork package
+# The source code is on GitHub and is installable with pip, but it is not hosted on PyPi.org
+# GitHub: https://github.com/fizisist/LorentzGroupNetwork
+RUN cd /opt/ && \
+    git clone https://github.com/fizisist/LorentzGroupNetwork.git && \
+    cd LorentzGroupNetwork/ && \
+    pip install --no-cache-dir . && \
+    cd /workspace
 
 # Conda pycuda by lukepfister and powerai don't install in python 3.7
 # If we want pycuda we should install with 'apt-get install python3-pycuda'
