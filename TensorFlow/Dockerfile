@@ -3,9 +3,11 @@ ARG TensorFlow_Variants=-gpu
 FROM tensorflow/tensorflow:${TensorFlow_Version}${TensorFlow_Variants}
 MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
 
-RUN apt-get update --fix-missing && \
-    apt-get install -y curl wget git ca-certificates cmake
-#    bzip2 libglib2.0-0 libxext6 libsm6 libxrender1 mercurial subversion && \
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
+    apt-get update --fix-missing && \
+    apt-get install -y curl wget git ca-certificates cmake && \
+    apt-get install -y nodejs && \
+    apt-get clean
 
 # Install bazel
 # Don't need this if we use the "devel" variant, which comes with bazel
@@ -18,7 +20,9 @@ RUN apt-get update --fix-missing && \
 
 # Install packages into the default python release
 RUN pip uninstall -y enum34 && \
-    pip install --no-cache-dir blaze cython dask gpyopt graphviz keras keras-tuner matplotlib mkl mlflow mlflow-extend mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn tables theano energyflow PyHamcrest uproot uproot-methods
+    pip install --no-cache-dir blaze cython dask gpyopt graphviz jupyterlab keras keras-tuner matplotlib mkl mlflow mlflow-extend \
+    	mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn tables theano energyflow PyHamcrest uproot uproot-methods && \
+    jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 # Install libgpuarray/pygpu
 # Known Dependencies: cmake, git
