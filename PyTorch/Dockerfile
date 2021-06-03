@@ -5,20 +5,32 @@ MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
 
 ARG TORCH_VERSION=1.8.1
 ARG CUDA_VERSION=cu111
+
 RUN apt-get update --fix-missing && \
-    apt-get install -y wget git nano && \
-    apt-get clean && \
-    /opt/conda/bin/conda install -y blaze dask graphviz matplotlib numba pandas pydot pygpu pytest scikit-image scikit-learn PyHamcrest && \
-    /opt/conda/bin/conda install -y -c conda-forge gpyopt ipywidgets jupyterlab nodejs notebook mlflow opencv py-opencv pytables uproot uproot-methods widgetsnbextension && \
+    apt-get install -y wget git nano g++ && \
+    apt-get clean
+
+# Unable to install libopencv, opencv, or py-opencv using either conda or mamba
+#  nor from either the anaconda or the conda-forge channels
+RUN echo "\n\nInstalling mamba ..." && \
+    conda install mamba -n base -c conda-forge && \
+    echo "\n\nInstalling packages from conda-forge using mamba ..." && \
+    mamba install -y -c conda-forge dask distributed gpyopt ipywidgets jax jupyterlab \
+      matplotlib mlflow nodejs notebook numba pandas pydot pygpu PyHamcrest pytables pytest \
+      scikit-image scikit-learn uproot uproot-methods widgetsnbextension && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
-    pip install --no-cache-dir energyflow && \
+    echo "\n\nCleaning the conda cache ..." && \
+    /opt/conda/bin/conda clean -ya
+
+# Graphviz moved to pip install because the conda installation is unbearably slow
+#  and mamba can't install the needed dependencies correctly
+RUN echo "\n\nInstalling packages from pip ..." && \
+    pip install --no-cache-dir energyflow graphviz && \
     pip install --no-cache-dir torch-scatter -f https://pytorch-geometric.com/whl/torch-${TORCH_VERSION}+${CUDA_VERSION}.html && \
     pip install --no-cache-dir torch-sparse -f https://pytorch-geometric.com/whl/torch-${TORCH_VERSION}+${CUDA_VERSION}.html && \
     pip install --no-cache-dir torch-cluster -f https://pytorch-geometric.com/whl/torch-${TORCH_VERSION}+${CUDA_VERSION}.html && \
     pip install --no-cache-dir torch-spline-conv -f https://pytorch-geometric.com/whl/torch-${TORCH_VERSION}+${CUDA_VERSION}.html && \
-    pip install --no-cache-dir torch-geometric && \
-    /opt/conda/bin/conda clean -ya && \
-    rm -r .empty
+    pip install --no-cache-dir torch-geometric
 
 # Install the LorentzGroupNetwork package
 # The source code is on GitHub and is installable with pip, but it is not hosted on PyPi.org
