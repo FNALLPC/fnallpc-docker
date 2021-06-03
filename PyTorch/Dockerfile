@@ -7,7 +7,7 @@ ARG TORCH_VERSION=1.8.1
 ARG CUDA_VERSION=cu111
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y wget git nano g++ && \
+    apt-get install -y wget git less nano g++ && \
     apt-get clean
 
 # Unable to install libopencv, opencv, or py-opencv using either conda or mamba
@@ -17,7 +17,7 @@ RUN echo "\n\nInstalling mamba ..." && \
     echo "\n\nInstalling packages from conda-forge using mamba ..." && \
     mamba install -y -c conda-forge dask distributed gpyopt ipywidgets jax jupyterlab \
       matplotlib mlflow nodejs notebook numba pandas pydot pygpu PyHamcrest pytables pytest \
-      scikit-image scikit-learn uproot uproot-methods widgetsnbextension && \
+      scikit-image scikit-learn tensorboardx uproot uproot-methods widgetsnbextension xrootd=5.2.0 && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     echo "\n\nCleaning the conda cache ..." && \
     /opt/conda/bin/conda clean -ya
