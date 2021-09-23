@@ -20,7 +20,7 @@ RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
 
 # Install packages into the default python release
 RUN pip uninstall -y enum34 && \
-    pip install --no-cache-dir awkward blaze cython dask gpyopt graphviz jupyterlab keras keras-tuner matplotlib mkl mlflow mlflow-extend \
+    pip install --no-cache-dir awkward blaze cython dask gpyopt graphviz ipympl jupyterlab keras keras-tuner matplotlib mkl mlflow mlflow-extend \
     	mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn tables theano energyflow PyHamcrest uproot vector && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
