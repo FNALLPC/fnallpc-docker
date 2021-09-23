@@ -15,7 +15,7 @@ RUN apt-get update --fix-missing && \
 RUN echo "\n\nInstalling mamba ..." && \
     conda install mamba -n base -c conda-forge && \
     echo "\n\nInstalling packages from conda-forge using mamba ..." && \
-    mamba install -y -c conda-forge dask distributed gpyopt ipywidgets jax jupyterlab \
+    mamba install -y -c conda-forge dask distributed gpyopt ipympl ipywidgets jax jupyterlab \
       matplotlib mlflow nodejs notebook numba pandas pydot pygpu PyHamcrest pytables pytest \
       scikit-image scikit-learn tensorboardx uproot uproot-methods widgetsnbextension xrootd=5.2.0 && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
