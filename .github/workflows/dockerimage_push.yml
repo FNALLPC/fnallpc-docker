@@ -42,4 +42,4 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         workdir: PyTorch/
-        tags: "pytorch-1.8.1-cuda11.1-cudnn8-runtime-singularity"
+        tags: "pytorch-1.9.0-cuda11.1-cudnn8-runtime-singularity"

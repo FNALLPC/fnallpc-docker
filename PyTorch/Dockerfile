@@ -1,9 +1,9 @@
-ARG PyTorch_Version=1.8.1-cuda11.1-cudnn8
+ARG PyTorch_Version=1.9.0-cuda11.1-cudnn8
 ARG PyTorch_Variants=-runtime
 FROM pytorch/pytorch:${PyTorch_Version}${PyTorch_Variants}
 MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
 
-ARG TORCH_VERSION=1.8.1
+ARG TORCH_VERSION=1.9.0
 ARG CUDA_VERSION=cu111
 
 RUN apt-get update --fix-missing && \
