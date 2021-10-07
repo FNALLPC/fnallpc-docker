@@ -3,9 +3,9 @@ ARG TensorFlow_Variants=-gpu
 FROM tensorflow/tensorflow:${TensorFlow_Version}${TensorFlow_Variants}
 MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
 
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
-    apt-get update --fix-missing && \
+RUN apt-get update --fix-missing && \
     apt-get install -y curl wget git ca-certificates cmake && \
+    curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs && \
     apt-get clean
 
