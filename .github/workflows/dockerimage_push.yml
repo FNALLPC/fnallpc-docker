@@ -3,13 +3,15 @@ name: Build and Publish Default Docker Image
 on: 
   workflow_dispatch:
   push:
+    branches: [ singularity_compatible ]
   pull_request:
+    branches: [ singularity_compatible ]
 
 jobs:
   build_tensorflow:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Publish TensorFlow Docker
       uses: elgohr/Publish-Docker-Github-Action@v4
       env:
@@ -26,7 +28,7 @@ jobs:
   build_pytorch:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
     - name: Publish Pytorch Docker
       uses: elgohr/Publish-Docker-Github-Action@v4
       env:
