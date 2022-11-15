@@ -1,10 +1,10 @@
-ARG PyTorch_Version=1.9.0-cuda11.1-cudnn8
+ARG PyTorch_Version=1.13.0-cuda11.6-cudnn8
 ARG PyTorch_Variants=-runtime
 FROM pytorch/pytorch:${PyTorch_Version}${PyTorch_Variants}
-MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
+MAINTAINER Kevin Pedro "pedrok@fnal.gov"
 
-ARG TORCH_VERSION=1.9.0
-ARG CUDA_VERSION=cu111
+ARG TORCH_VERSION=1.13.0
+ARG CUDA_VERSION=cu116
 
 RUN apt-get update --fix-missing && \
     apt-get install -y wget git less nano g++ && \
@@ -15,9 +15,9 @@ RUN apt-get update --fix-missing && \
 RUN echo "\n\nInstalling mamba ..." && \
     conda install mamba -n base -c conda-forge && \
     echo "\n\nInstalling packages from conda-forge using mamba ..." && \
-    mamba install -y -c pytorch -c conda-forge torchvision=0.10.0 cudatoolkit=11.1 dask distributed gpyopt ipympl ipywidgets jax jupyterlab \
+    mamba install -y -c pytorch -c conda-forge torchvision=0.10.0 awkward cudatoolkit=11.1 dask distributed gpyopt hist ipympl ipywidgets jax jupyterlab \
       matplotlib mlflow nodejs notebook numba pandas pydot pygpu PyHamcrest pytables pytest \
-      scikit-image scikit-learn tensorboardx uproot uproot-methods widgetsnbextension xrootd=5.2.0 && \
+      scikit-image scikit-learn tensorboardx uproot widgetsnbextension vector xrootd=5.2.0 && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     echo "\n\nCleaning the conda cache ..." && \
     /opt/conda/bin/conda clean -ya
