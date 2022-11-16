@@ -22,7 +22,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         workdir: TensorFlow/
-        tag: "tensorflow-${{ env.TensorFlow_Version }}${{ env.TensorFlow_Variants }}-singularity"
+        tags: "tensorflow-${{ env.TensorFlow_Version }}${{ env.TensorFlow_Variants }}-singularity"
         no_push: ${{ github.event_name == 'pull_request' }}
 
   build_pytorch:
@@ -39,5 +39,5 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
         workdir: PyTorch/
-        tag: "pytorch-${{ env.PyTorch_Version }}${{ env.PyTorch_Variants }}-singularity"
+        tags: "pytorch-${{ env.PyTorch_Version }}${{ env.PyTorch_Variants }}-singularity"
         no_push: ${{ github.event_name == 'pull_request' }}
