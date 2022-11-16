@@ -4,15 +4,15 @@ FROM tensorflow/tensorflow:${TensorFlow_Version}${TensorFlow_Variants}
 MAINTAINER Kevin Pedro "pedrok@fnal.gov"
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y curl wget git ca-certificates cmake nano && \
+    apt-get install -y curl wget git ca-certificates cmake nano libssl-dev uuid-dev && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs && \
     apt-get clean
 
 # Install packages into the default python release
-RUN pip uninstall -y enum34 && \
+RUN pip install --upgrade requests && \
     pip install --no-cache-dir awkward blaze cython dask gpyopt graphviz hist ipympl jupyterlab keras keras-tuner matplotlib mkl mlflow mlflow-extend \
-    	mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn tables theano energyflow PyHamcrest uproot vector xrootd=5.2.0 && \
+    	mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn tables theano energyflow PyHamcrest uproot vector xrootd && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 # Install libgpuarray/pygpu

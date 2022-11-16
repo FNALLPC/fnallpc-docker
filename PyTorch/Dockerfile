@@ -7,17 +7,18 @@ ARG TORCH_VERSION=1.13.0
 ARG CUDA_VERSION=cu116
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y wget git less nano g++ && \
+    apt-get install -y wget git less nano g++ libssl-dev uuid-dev cmake && \
     apt-get clean
 
 # Unable to install libopencv, opencv, or py-opencv using either conda or mamba
 #  nor from either the anaconda or the conda-forge channels
 RUN echo "\n\nInstalling mamba ..." && \
     conda install mamba -n base -c conda-forge && \
+    conda install libarchive==3.5.2 -n base -c conda-forge && \
     echo "\n\nInstalling packages from conda-forge using mamba ..." && \
     mamba install -y -c pytorch -c conda-forge torchvision=0.10.0 awkward cudatoolkit=11.1 dask distributed gpyopt hist ipympl ipywidgets jax jupyterlab \
       matplotlib mlflow nodejs notebook numba pandas pydot pygpu PyHamcrest pytables pytest \
-      scikit-image scikit-learn tensorboardx uproot widgetsnbextension vector xrootd=5.2.0 && \
+      scikit-image scikit-learn tensorboardx uproot widgetsnbextension vector xrootd && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     echo "\n\nCleaning the conda cache ..." && \
     /opt/conda/bin/conda clean -ya
