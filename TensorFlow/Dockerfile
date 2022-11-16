@@ -1,27 +1,18 @@
-ARG TensorFlow_Version=latest
+ARG TensorFlow_Version=2.10.0
 ARG TensorFlow_Variants=-gpu
 FROM tensorflow/tensorflow:${TensorFlow_Version}${TensorFlow_Variants}
-MAINTAINER Alexx Perloff "Alexx.Perloff@Colorado.edu"
+MAINTAINER Kevin Pedro "pedrok@fnal.gov"
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y curl wget git ca-certificates cmake && \
+    apt-get install -y curl wget git ca-certificates cmake nano libssl-dev uuid-dev && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs && \
     apt-get clean
 
-# Install bazel
-# Don't need this if we use the "devel" variant, which comes with bazel
-# Known Dependencies: curl
-#RUN curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
-#    echo "deb [arch=amd64] https://storage.googleapis.com/bazel-apt stable jdk1.8" | tee /etc/apt/sources.list.d/bazel.list && \
-#    apt-get update && \ 
-#    apt-get install -y bazel && \
-#    apt-get clean
-
 # Install packages into the default python release
-RUN pip uninstall -y enum34 && \
-    pip install --no-cache-dir awkward blaze cython dask gpyopt graphviz ipympl jupyterlab keras keras-tuner matplotlib mkl mlflow mlflow-extend \
-    	mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn tables theano energyflow PyHamcrest uproot vector && \
+RUN pip install --upgrade requests && \
+    pip install --no-cache-dir awkward blaze cython dask gpyopt graphviz hist ipympl jupyterlab keras keras-tuner matplotlib mkl mlflow mlflow-extend \
+    	mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn tables theano energyflow PyHamcrest uproot vector xrootd && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 # Install libgpuarray/pygpu
