@@ -3,9 +3,9 @@ name: Build and Publish Default Docker Image
 on: 
   workflow_dispatch:
   push:
-    branches: [ singularity_compatible ]
+    branches: [ singularity-compatible ]
   pull_request:
-    branches: [ singularity_compatible ]
+    branches: [ singularity-compatible ]
 
 jobs:
   build_tensorflow:
