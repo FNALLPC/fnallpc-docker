@@ -12,7 +12,7 @@ RUN apt-get update --fix-missing && \
 # Install packages into the default python release
 RUN pip install --upgrade requests && \
     pip install --no-cache-dir 'awkward<2' blaze cython dask gpyopt graphviz hist ipympl jupyterlab keras keras-tuner matplotlib mkl mlflow mlflow-extend \
-    	mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn tables theano energyflow PyHamcrest uproot vector xrootd && \
+    	mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn tables theano energyflow PyHamcrest 'uproot<5' vector xrootd && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
 # Install libgpuarray/pygpu

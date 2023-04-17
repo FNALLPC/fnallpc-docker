@@ -18,7 +18,7 @@ RUN echo "\n\nInstalling mamba ..." && \
     echo "\n\nInstalling packages from conda-forge using mamba ..." && \
     mamba install -y -c pytorch -c conda-forge torchvision=0.10.0 'awkward<2' cudatoolkit=11.1 dask distributed gpyopt hist ipympl ipywidgets jax jupyterlab \
       matplotlib mlflow nodejs notebook numba pandas pydot pygpu PyHamcrest pytables pytest \
-      scikit-image scikit-learn tensorboardx uproot widgetsnbextension vector xrootd && \
+      scikit-image scikit-learn tensorboardx 'uproot<5' widgetsnbextension vector xrootd && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
     echo "\n\nCleaning the conda cache ..." && \
     /opt/conda/bin/conda clean -ya
