@@ -1,7 +1,11 @@
-ARG TensorFlow_Version=2.12.0
-ARG TensorFlow_Variants=-gpu
+ARG TensorFlow_Version
+ARG TensorFlow_Variants
 FROM tensorflow/tensorflow:${TensorFlow_Version}${TensorFlow_Variants}
 MAINTAINER Kevin Pedro "pedrok@fnal.gov"
+
+# repeat args after from
+ARG TensorFlow_Version
+ARG TensorFlow_Variants
 
 RUN apt-get update --fix-missing && \
     apt-get install -y curl wget git ca-certificates cmake nano libssl-dev uuid-dev imagemagick python3-dev && \

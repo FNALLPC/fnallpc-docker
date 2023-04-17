@@ -1,10 +1,17 @@
-ARG PyTorch_Version=2.0.0-cuda11.7-cudnn8
-ARG PyTorch_Variants=-runtime
-FROM pytorch/pytorch:${PyTorch_Version}${PyTorch_Variants}
+ARG PyTorch_Version
+ARG CUDA_Major
+ARG CUDA_Minor
+ARG PyTorch_Tag
+ARG PyTorch_Variants
+FROM pytorch/pytorch:${PyTorch_Tag}${PyTorch_Variants}
 MAINTAINER Kevin Pedro "pedrok@fnal.gov"
 
-ARG TORCH_VERSION=2.0.0
-ARG CUDA_VERSION=cu117
+# repeat args after from
+ARG PyTorch_Version
+ARG CUDA_Major
+ARG CUDA_Minor
+ARG PyTorch_Tag
+ARG PyTorch_Variants
 
 RUN apt-get update --fix-missing && \
     apt-get install -y wget git less nano g++ libssl-dev uuid-dev cmake imagemagick python3-dev && \
@@ -25,12 +32,13 @@ RUN echo "\n\nInstalling mamba ..." && \
 
 # Graphviz moved to pip install because the conda installation is unbearably slow
 #  and mamba can't install the needed dependencies correctly
+ARG CUDA_Version=cu${CUDA_Major}${CUDA_Minor}
 RUN echo "\n\nInstalling packages from pip ..." && \
     pip install --no-cache-dir energyflow graphviz && \
-    pip install --no-cache-dir torch-scatter -f https://pytorch-geometric.com/whl/torch-${TORCH_VERSION}+${CUDA_VERSION}.html && \
-    pip install --no-cache-dir torch-sparse -f https://pytorch-geometric.com/whl/torch-${TORCH_VERSION}+${CUDA_VERSION}.html && \
-    pip install --no-cache-dir torch-cluster -f https://pytorch-geometric.com/whl/torch-${TORCH_VERSION}+${CUDA_VERSION}.html && \
-    pip install --no-cache-dir torch-spline-conv -f https://pytorch-geometric.com/whl/torch-${TORCH_VERSION}+${CUDA_VERSION}.html && \
+    pip install --no-cache-dir torch-scatter -f https://pytorch-geometric.com/whl/torch-${PyTorch_Version}+${CUDA_Version}.html && \
+    pip install --no-cache-dir torch-sparse -f https://pytorch-geometric.com/whl/torch-${PyTorch_Version}+${CUDA_Version}.html && \
+    pip install --no-cache-dir torch-cluster -f https://pytorch-geometric.com/whl/torch-${PyTorch_Version}+${CUDA_Version}.html && \
+    pip install --no-cache-dir torch-spline-conv -f https://pytorch-geometric.com/whl/torch-${PyTorch_Version}+${CUDA_Version}.html && \
     pip install --no-cache-dir torch-geometric
 
 # Install the LorentzGroupNetwork package
@@ -44,7 +52,6 @@ RUN cd /opt/ && \
 
 # Conda pycuda by lukepfister and powerai don't install in python 3.7
 # If we want pycuda we should install with 'apt-get install python3-pycuda'
-ARG PyTorch_Variants=-runtime
 RUN if [[ "${PyTorch_Variants}" == *"devel"* ]]; then apt-get install -y python3-pycuda && apt-get clean; else echo "building without pycuda" ; fi
 
 # Set the entrypoint
