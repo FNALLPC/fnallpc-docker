@@ -4,7 +4,7 @@ FROM tensorflow/tensorflow:${TensorFlow_Version}${TensorFlow_Variants}
 MAINTAINER Kevin Pedro "pedrok@fnal.gov"
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y curl wget git ca-certificates cmake nano libssl-dev uuid-dev imagemagick && \
+    apt-get install -y curl wget git ca-certificates cmake nano libssl-dev uuid-dev imagemagick python3-dev && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs && \
     apt-get clean

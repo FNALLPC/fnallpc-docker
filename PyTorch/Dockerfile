@@ -7,7 +7,7 @@ ARG TORCH_VERSION=2.0.0
 ARG CUDA_VERSION=cu117
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y wget git less nano g++ libssl-dev uuid-dev cmake imagemagick && \
+    apt-get install -y wget git less nano g++ libssl-dev uuid-dev cmake imagemagick python3-dev && \
     apt-get clean
 
 # Unable to install libopencv, opencv, or py-opencv using either conda or mamba
