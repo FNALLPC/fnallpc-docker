@@ -1,13 +1,13 @@
-ARG PyTorch_Version=1.13.0-cuda11.6-cudnn8
+ARG PyTorch_Version=2.0.0-cuda11.7-cudnn8
 ARG PyTorch_Variants=-runtime
 FROM pytorch/pytorch:${PyTorch_Version}${PyTorch_Variants}
 MAINTAINER Kevin Pedro "pedrok@fnal.gov"
 
-ARG TORCH_VERSION=1.13.0
-ARG CUDA_VERSION=cu116
+ARG TORCH_VERSION=2.0.0
+ARG CUDA_VERSION=cu117
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y wget git less nano g++ libssl-dev uuid-dev cmake && \
+    apt-get install -y wget git less nano g++ libssl-dev uuid-dev cmake imagemagick && \
     apt-get clean
 
 # Unable to install libopencv, opencv, or py-opencv using either conda or mamba
@@ -16,7 +16,7 @@ RUN echo "\n\nInstalling mamba ..." && \
     conda install mamba -n base -c conda-forge && \
     conda install libarchive==3.5.2 -n base -c conda-forge && \
     echo "\n\nInstalling packages from conda-forge using mamba ..." && \
-    mamba install -y -c pytorch -c conda-forge torchvision=0.10.0 awkward cudatoolkit=11.1 dask distributed gpyopt hist ipympl ipywidgets jax jupyterlab \
+    mamba install -y -c pytorch -c conda-forge torchvision=0.10.0 'awkward<2' cudatoolkit=11.1 dask distributed gpyopt hist ipympl ipywidgets jax jupyterlab \
       matplotlib mlflow nodejs notebook numba pandas pydot pygpu PyHamcrest pytables pytest \
       scikit-image scikit-learn tensorboardx uproot widgetsnbextension vector xrootd && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager && \
