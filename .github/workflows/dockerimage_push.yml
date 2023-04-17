@@ -15,7 +15,7 @@ jobs:
     - name: Publish TensorFlow Docker
       uses: elgohr/Publish-Docker-Github-Action@v4
       env:
-        TensorFlow_Version: '2.10.0'
+        TensorFlow_Version: '2.12.0'
         TensorFlow_Variants: '-gpu'
       with:
         name: fnallpc/fnallpc-docker

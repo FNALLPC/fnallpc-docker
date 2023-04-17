@@ -1,17 +1,17 @@
-ARG TensorFlow_Version=2.10.0
+ARG TensorFlow_Version=2.12.0
 ARG TensorFlow_Variants=-gpu
 FROM tensorflow/tensorflow:${TensorFlow_Version}${TensorFlow_Variants}
 MAINTAINER Kevin Pedro "pedrok@fnal.gov"
 
 RUN apt-get update --fix-missing && \
-    apt-get install -y curl wget git ca-certificates cmake nano libssl-dev uuid-dev && \
+    apt-get install -y curl wget git ca-certificates cmake nano libssl-dev uuid-dev imagemagick && \
     curl -sL https://deb.nodesource.com/setup_14.x | bash - && \
     apt-get install -y nodejs && \
     apt-get clean
 
 # Install packages into the default python release
 RUN pip install --upgrade requests && \
-    pip install --no-cache-dir awkward blaze cython dask gpyopt graphviz hist ipympl jupyterlab keras keras-tuner matplotlib mkl mlflow mlflow-extend \
+    pip install --no-cache-dir 'awkward<2' blaze cython dask gpyopt graphviz hist ipympl jupyterlab keras keras-tuner matplotlib mkl mlflow mlflow-extend \
     	mlflowhelper numba numpy pandas pydot pytest scikit-image scikit-learn tables theano energyflow PyHamcrest uproot vector xrootd && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager
 
